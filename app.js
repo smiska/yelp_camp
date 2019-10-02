@@ -5,8 +5,11 @@ var express = require("express"),
     mongoose = require("mongoose");
  
 // SET UP THE ENVIROMENT    
-//mongoose.connect("mongodb://localhost/yelp_camp");   
-mongoose.connect("mongodb://smiska:rusty@ds023428.mlab.com:23428/yelp_camp");   
+//mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://smiska:rusty@ds023428.mlab.com:23428/yelp_camp", 
+{
+    useMongoClient: true
+});   
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -73,6 +76,6 @@ app.get("*", function(req, res) {
     res.render("star");
 });
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(process.env.PORT || 8080, process.env.IP || 'localhost', function(){
     console.log("The YelpCamp server has started!");
-    });
+});
